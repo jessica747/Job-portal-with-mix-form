@@ -1,0 +1,91 @@
+{% extends 'common/base.html' %}
+
+{% block content %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile Card</title>
+    <style>
+        .profile-card {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 800px;
+            text-align: center;
+            overflow: hidden;
+            margin: 20px auto;
+        }
+
+        .profile-picture img {
+            width: 150px;
+            height: auto;
+            object-fit: cover;
+        }
+
+        .profile-details {
+            padding: 20px;
+        }
+
+        .user-name {
+            font-size: 1.5em;
+            margin: 0;
+            color: #333;
+        }
+
+        .button {
+            background-color: #04AA6D;
+            border: none;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+        }
+
+        .button2 {
+            background-color: #008CBA;
+        }
+
+        .button3 {
+            background-color: #f44336;
+        }
+
+        .button4 {
+            background-color: #e7e7e7;
+            color: black;
+        }
+
+        .button5 {
+            background-color: #555555;
+        }
+    </style>
+</head>
+
+<body>
+
+    {% block profile %}
+    <div class="profile-card">
+        <div class="profile-picture">
+            <img src="{{user.Profile_Picture.url}}" alt="Profile Picture">
+        </div>
+
+        <div class="profile-details">
+            <h2 class="user-name">{{user.username}}</h2>
+        </div>
+        {% include "profile/navprofile.html" %}
+    </div>
+
+
+    {% endblock profile %}
+</body>
+
+</html>
+
+{% endblock content %}

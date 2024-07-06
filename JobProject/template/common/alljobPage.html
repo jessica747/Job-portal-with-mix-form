@@ -1,0 +1,149 @@
+{% extends 'common/base.html' %}
+
+{% block content %}
+<h1>This is All Job</h1>
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Cards</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+        }
+
+        .job-cards-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            padding: 20px;
+
+        }
+
+        .job-card {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 500px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .company-logo img {
+            max-width: 150px;
+            height: auto;
+            object-fit: cover;
+        }
+
+        .job-details {
+            padding: 20px;
+            flex-grow: 1;
+        }
+
+        .job-title {
+            font-size: 1.5em;
+            margin: 0;
+            color: #333;
+        }
+
+        .company-name {
+            font-weight: bold;
+            color: #777;
+        }
+
+        .company-description {
+            margin: 10px 0;
+            color: #555;
+        }
+
+        .company-location,
+        .qualifications,
+        .deadline,
+        .salary {
+            margin: 5px 0;
+            color: #555;
+        }
+
+        .buttons {
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .btn {
+            border: none;
+            padding: 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+            flex: 1;
+            text-align: center;
+        }
+
+        .btn+.btn {
+            margin-left: 10px;
+        }
+
+        .view-btn {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        .edit-btn {
+            background-color: #2196F3;
+            color: white;
+        }
+
+        .delete-btn {
+            background-color: #f44336;
+            color: white;
+        }
+
+        .btn:hover {
+            opacity: 0.8;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="job-cards-container">
+        {% for i in alljobdata %}
+        <div class="job-card">
+            <div class="company-logo">
+                <img src="{{i.Company_Logo.url}}" alt="Company Logo">
+            </div>
+            <div class="job-details">
+                <h2 class="job-title">{{i.Job_Title}}</h2>
+                <p class="company-name">{{i.Company_Name}}</p>
+                <p class="company-description">{{i.Company_Description}}</p>
+                <p class="company-location">{{i.Company_Location}}</p>
+                <p class="qualifications">{{i.Qualifications}}</p>
+                <p class="deadline">{{i.Dead_Line}}</p>
+                <p class="salary">{{i.Salary}}</p>
+                <div class="buttons">
+                    <a href="{% url 'applyjob' i.id %}">
+                        <button class="btn view-btn">Apply Job</button>
+                    </a>
+                    <a href="{% url 'editjob' i.id %}">
+                        <button class="btn edit-btn">Edit</button>
+                    </a>
+                    <a href="{% url 'deletePage' i.id %}">
+                        <button class="btn delete-btn">Delete</button>
+                    </a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</body>
+
+</html>
+{% endblock content %}
