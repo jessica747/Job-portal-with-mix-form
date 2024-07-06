@@ -1,0 +1,46 @@
+{% extends 'profile/profilebase.html' %}
+
+
+{% block profile %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Basic Information</title>
+    <style>
+        .card {
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px;
+            width: 300px;
+            box-shadow: 2px 2px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .card h2 {
+            margin-top: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        {% for i in basicinfo %}
+        <div class="card">
+            <h2>{{ i.portaluser.username }}</h2>
+            <p><strong>Father's Name:</strong> {{ i.Fathers_Name }}</p>
+            <p><strong>Mother's Name:</strong> {{ i.Mothers_Name }}</p>
+            <p><strong>Marital Status:</strong> {{ i.get_Marital_Status_display }}</p>
+            <p><strong>Date of Birth:</strong> {{ i.Date_Of_Birth }}</p>
+        </div>
+        {% endfor %}
+    </div>
+</body>
+
+</html>
+
+
+{% endblock profile %}

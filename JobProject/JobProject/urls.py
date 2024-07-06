@@ -23,6 +23,17 @@ urlpatterns = [
 
     #Profile
     path('profilebase/',profilebase,name='profilebase'),
+    path('basicinfoPage/',basicinfoPage,name='basicinfoPage'),
+    path('contactinfoPage/',contactinfoPage,name='contactinfoPage'),
+    path('educationinfoPage/',educationinfoPage,name='educationinfoPage'),
+    path('workexperiencePage/',workexperiencePage,name='workexperiencePage'),
+    path('editprofilePage/',editprofilePage,name='editprofilePage'),
+    path('changepassword/',changepassword,name='changepassword'),
+
+    #Applied Job (Seeker)
+
+    path('appliedjob/',appliedjob,name='appliedjob'),
+    path('postedjob/',postedjob,name='postedjob'),
 
 
 

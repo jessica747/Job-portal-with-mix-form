@@ -129,14 +129,21 @@
                 <p class="deadline">{{i.Dead_Line}}</p>
                 <p class="salary">{{i.Salary}}</p>
                 <div class="buttons">
+                    {% if user.User_Type == 'jobseeker' %}
                     <a href="{% url 'applyjob' i.id %}">
                         <button class="btn view-btn">Apply Job</button>
                     </a>
+
+                    {% elif user.User_Type == 'recruiter' %}
+                    
+
                     <a href="{% url 'editjob' i.id %}">
                         <button class="btn edit-btn">Edit</button>
                     </a>
                     <a href="{% url 'deletePage' i.id %}">
                         <button class="btn delete-btn">Delete</button>
+
+                    {% endif %}
                     </a>
                 </div>
             </div>

@@ -1,9 +1,12 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import render,redirect,get_object_or_404
 from JobApp.models import *
 from django.contrib import messages
 from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth.decorators import login_required
 from JobProject.forms import *
+from django.contrib.auth.hashers import check_password
+from django.contrib.auth import update_session_auth_hash
+
 
 
 message_box={
@@ -61,7 +64,7 @@ def dashboard(request):
 login_required
 def logoutPage(request):
     logout(request)
-    return redirect('logoutPage')
+    return redirect('siginPage')
 
 
 def addjobPage(request):
@@ -132,4 +135,123 @@ def applyjob(request,jobid):
 @login_required
 def profilebase(request):
     return render(request,'profile/profilebase.html')
+    
+@login_required
+def appliedjob(request):
+    applieddata=Applyjob_Model.objects.filter(Applicant=request.user)
+    context={
+        'applieddata':applieddata
+    }
+    return render(request,'profile/appliedjob.html',context)
+
+@login_required
+def postedjob(request):
+    posteddata=AddJob_Model.objects.filter(recruiteruser=request.user)
+    context={
+        'posteddata':posteddata
+    }
+    return render(request,'profile/postedjob.html',context)
+
+
+@login_required
+def basicinfoPage(request):
+    basicinfo=BasicInformation_model.objects.filter(portaluser=request.user)
+    context={
+        'basicinfo':basicinfo
+    }
+    return render(request,'profile/basicinfoPage.html',context)
+
+@login_required
+def contactinfoPage(request):
+    contactinfo=ContactInformation_model.objects.filter(portaluser=request.user)
+    context={
+        'contactinfo':contactinfo
+    }
+    return render(request,'profile/contactinfoPage.html',context)
+    
+@login_required
+def educationinfoPage(request):
+    educationdata=EducationQualifiction.objects.filter(seekeruser=request.user)
+    context={
+        'educationdata':educationdata
+    }
+    return render(request,'profile/educationinfoPage.html',context)
+
+@login_required
+def workexperiencePage(request):
+    workinfo=WorkExperiance.objects.filter(seekeruser=request.user)
+    context={
+        'workinfo':workinfo
+    }   
+    return render(request,'profile/workexperiencePage.html',context)
+
+def editprofilePage(request):
+    basicmodel=BasicInformation_model.objects.get(portaluser=request.user)
+    contactmodel=ContactInformation_model.objects.get(portaluser=request.user)
+    if request.user.User_Type== 'jobseeker':
+        edumodel=EducationQualifiction.objects.get(seekeruser=request.user)
+        workmodel=WorkExperiance.objects.get(seekeruser=request.user)
+
+    if request.method == 'POST':
+        editpro=customeUser_form(request.POST,request.FILES,instance=request.user)
+        basic=basicinfo_form(request.POST,instance=basicmodel)
+        contact=contactinfo_form(request.POST,instance=contactmodel)
+        if request.user.User_Type== 'jobseeker':
+            education=educationinfo_form(request.POST,instance=edumodel)
+            work=workexperiance_form(request.POST,instance=workmodel)
+        if editpro.is_valid():
+            editpro.save()
+        if basic.is_valid():
+            basic.save()
+        if contact.is_valid():
+            contact.save()
+        if education.is_valid():
+            education.save()
+        if work.is_valid():
+            work.save()
+            return redirect('profilebase')
+    else:
+        editpro=customeUser_form(instance=request.user)
+        basic=basicinfo_form(instance=basicmodel)
+        contact=contactinfo_form(instance=contactmodel)
+        if request.user.User_Type== 'jobseeker':
+            education=educationinfo_form(instance=edumodel)
+            work=workexperiance_form(instance=workmodel)
+            context={
+                'editpro':editpro,
+                'basic':basic,
+                'contact':contact,
+                'education':education,
+                'work':work,
+
+            }
+    context={
+    'editpro':editpro,
+    'basic':basic,
+    'contact':contact,
+
+
+}  
+    return render(request,'profile/editprofilePage.html',context)
+
+
+
+
+@login_required
+def changepassword(request):
+    current_user=request.user
+    if request.method=="POST":
+        current_pass=request.POST.get('current_pass')
+        new_pass=request.POST.get('new_pass')
+        confirm_new_pass=request.POST.get('confirm_new_pass')
+        
+        pass_check = check_password(current_pass,current_user.password)
+        if pass_check:
+            if new_pass==confirm_new_pass:
+                current_user.set_password(new_pass)
+                current_user.save()
+                update_session_auth_hash(request,current_user)
+                return redirect('profilebase')
+    return render(request,'profile/changepassword.html')
+
     

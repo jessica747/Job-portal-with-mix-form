@@ -16,7 +16,6 @@ class CustomeUser_model(AbstractUser):
         ('other','Other'),              
     ]
     Gender=models.CharField(choices= GENDER,max_length=100,null=True)
-    City=models.CharField(max_length=100,null=True)
     Profile_Picture=models.ImageField(upload_to='media/profilepicture',null=True)
 
 class BasicInformation_model(models.Model):

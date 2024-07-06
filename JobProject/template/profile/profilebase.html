@@ -70,7 +70,7 @@
 
 <body>
 
-    {% block profile %}
+
     <div class="profile-card">
         <div class="profile-picture">
             <img src="{{user.Profile_Picture.url}}" alt="Profile Picture">
@@ -79,11 +79,18 @@
         <div class="profile-details">
             <h2 class="user-name">{{user.username}}</h2>
         </div>
-        {% include "profile/navprofile.html" %}
-    </div>
+
+    {% include "profile/navprofile.html" %}
+    
+    {% block profile %}
 
 
     {% endblock profile %}
+
+    </div>
+
+
+
 </body>
 
 </html>

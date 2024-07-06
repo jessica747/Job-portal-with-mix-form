@@ -1,3 +1,33 @@
+<a href="{% url 'editprofilePage' %}">
 <button class="button">Edit Profile</button>
-<button class="button button2">Change Profile</button>
-<button class="button button3">Red</button>
+</a>
+{% if user.User_Type == 'recruiter' %}
+<a href="{% url 'postedjob' %}">
+    <button class="button">Posted Job</button>
+</a>
+
+{% elif user.User_Type == 'jobseeker'%}
+<a href="{% url 'appliedjob' %}">
+<button class="button button2">Applied Job</button>
+</a>
+<a href="{% url 'educationinfoPage' %}">
+    <button class="button button2">Education Information</button>
+</a>
+<a href="{% url 'workexperiencePage' %}">
+    <button class="button">Work Experience </button>
+</a>
+
+
+{% endif  %}
+<a href="{% url 'basicinfoPage' %}">
+<button class="button button2">Basic information</button>
+</a>
+
+<a href="{% url 'contactinfoPage' %}">
+<button class="button">Contact information</button>
+</a>
+
+
+<a href="{% url 'changepassword' %}">
+<button class="button button3">Change Passwprd</button>
+</a>

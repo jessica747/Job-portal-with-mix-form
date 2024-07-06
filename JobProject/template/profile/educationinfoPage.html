@@ -1,0 +1,46 @@
+{% extends 'profile/profilebase.html' %}
+
+
+{% block profile %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Basic Information</title>
+    <style>
+        .card {
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px;
+            width: 300px;
+            box-shadow: 2px 2px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .card h2 {
+            margin-top: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        {% for i in educationdata %}
+        <div class="card">
+            <h2>{{ i.portaluser.username }}</h2>
+            <p><strong>Degree:</strong> {{ i.Degree }}</p>
+            <p><strong>Passing_Year:</strong> {{ i.Passing_Year }}</p>
+            <p><strong>Grade:</strong> {{ i.Grade }}</p>
+            <p><strong>Department:</strong> {{ i.Department }}</p>
+        </div>
+        {% endfor %}
+    </div>
+</body>
+
+</html>
+
+
+{% endblock profile %}

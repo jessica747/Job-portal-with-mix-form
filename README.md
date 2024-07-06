@@ -58,3 +58,12 @@ Apply Job Model:
     - seeker_profile_pic
     - qualifications
     - status
+
+
+
+{% extends 'profile/profilebase.html' %}
+
+
+{% block profile %}
+    
+{% endblock profile %}

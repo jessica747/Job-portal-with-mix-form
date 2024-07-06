@@ -1,7 +1,9 @@
 <ul>
     <li><a href="{% url 'dashboard' %}">dashboard</a></li>
     <li><a href="{% url 'alljobPage' %}">All Job</a></li>
+    {% if user.User_Type == "recruiter" %}
     <li><a href="{% url 'addjobPage' %}">Addjob</a></li>
+    {% endif %}
     <li style="float:right"><a class="active" href="{% url 'logoutPage' %}">Logout</a></li>
     <li style="float:right"><a class="active" href="{% url 'profilebase' %}"> Profile </a></li>
 </ul>
