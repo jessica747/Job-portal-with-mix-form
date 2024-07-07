@@ -63,13 +63,12 @@
 <body>
     <div class="container">
         <div class="form-container">
-            <h2>Update Job</h2>
+            <h2>apply Job</h2>
             <form action="" method="POST" enctype="multipart/form-data">
                 {% csrf_token %}
-
                 {{applyjobdata}}
                 <div class="form-group">
-                    <button type="submit" class="btn submit-btn">Update Job</button>
+                    <button type="submit" class="btn submit-btn">Apply Job</button>
                 </div>
             </form>
         </div>

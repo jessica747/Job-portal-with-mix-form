@@ -27,6 +27,7 @@ def signupPage(request):
         Gender=request.POST.get('gender')
         Profile_Picture=request.FILES.get('profile_picture')
         if password==confirm_password:
+        
             user=CustomeUser_model.objects.create_user(
                 username=username,
                 password=confirm_password,
@@ -42,8 +43,12 @@ def signupPage(request):
             if User_Type == 'recruiter':
                 contactuser=ContactInformation_model.objects.create(portaluser=user)
                 contactuser.save()
-
+            messages.success(request,message_box['signup_success'])
+                
             return redirect ('siginPage')
+        else:
+            messages.warning(request,message_box['password_warning'])
+            return redirect('signupPage')
     return render(request,'common/signupPage.html')
 
 
@@ -54,19 +59,23 @@ def siginPage(request):
         user = authenticate(username=username,password=password) 
         if user:
             login(request,user)
+            messages.success(request,message_box['signin_success'])
             return redirect ('dashboard')
+        else:
+            messages.warning(request,message_box['signin_warning'])
+            return redirect('siginPage')
     return render(request,'common/signinPage.html')
 
-
+@login_required
 def dashboard(request):
     return render(request,'common/dashboard.html')
 
-login_required
+@login_required
 def logoutPage(request):
     logout(request)
     return redirect('siginPage')
 
-
+@login_required
 def addjobPage(request):
     if request.method == 'POST':
         addjobdata=addjob_form(request.POST,request.FILES)
@@ -82,7 +91,7 @@ def addjobPage(request):
 
     }
     return render(request,'recruiter/addjobPage.html',context)
-@login_required
+
 def alljobPage(request):
     alljobdata=AddJob_Model.objects.all()
     context={
@@ -124,7 +133,7 @@ def applyjob(request,jobid):
             applyform.Applicant=request.user
             applyform.Applied_job=applydata
             applyform.save()
-            return redirect('')
+            return redirect('appliedjob')
     else:
         applyjobdata=apply_form()
     context={
@@ -152,6 +161,14 @@ def postedjob(request):
     }
     return render(request,'profile/postedjob.html',context)
 
+@login_required
+def viewjob(request,jobid):
+    viewjobdata=AddJob_Model.objects.get(id=jobid)
+    context={
+        'viewjobdata':viewjobdata
+    }
+    return render(request,'common/viewjob.html',context)
+
 
 @login_required
 def basicinfoPage(request):
@@ -176,6 +193,34 @@ def educationinfoPage(request):
         'educationdata':educationdata
     }
     return render(request,'profile/educationinfoPage.html',context)
+
+
+@login_required
+def applicantPage(request,jobid):
+    job=AddJob_Model.objects.get(id=jobid)
+    applicantdata=Applyjob_Model.objects.filter(Applied_job=job)
+
+    context={
+        'applicantdata':applicantdata
+    }
+    return render(request,'recruiter/applicantPage.html',context)
+
+
+@login_required
+def rejectcandidate(request,jobid):
+    job=Applyjob_Model.objects.get(id=jobid)
+    job.Status='Rejected'
+    job.save()
+    return redirect('applicantPage',jobid=job.Applied_job.id)
+
+
+@login_required
+def callinterview(request,jobid):
+    job=Applyjob_Model.objects.get(id=jobid)
+    job.Status='Approved'
+    job.save()
+    return redirect('applicantPage',jobid=job.Applied_job.id)
+
 
 @login_required
 def workexperiencePage(request):

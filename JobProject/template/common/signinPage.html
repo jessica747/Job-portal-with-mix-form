@@ -1,3 +1,8 @@
+
+{% extends 'common/base.html' %}
+{% block content  %}
+  
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -6,7 +11,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Signup Page</title>
     <style>
-        body {
+        .signin {
             font-family: Arial, sans-serif;
             background-color: #f4f4f9;
             display: flex;
@@ -75,26 +80,33 @@
 </head>
 
 <body>
-    <div class="container">
-        <h1>Signin</h1>
-        <form action="{% url 'siginPage' %}" method="POST">
+   
+<div class="signin">
+        <div class="container">
+            <h1>Signin</h1>
+            <form action="{% url 'siginPage' %}" method="POST">
+        
+                {% csrf_token %}
 
-            {% csrf_token %}
-            <div class="form-group">
-                <label for="username">Username</label>
-                <input type="text" id="username" name="username" required>
-            </div>
-            <div class="form-group">
-                <label for="password">Password</label>
-                <input type="password" id="password" name="password" required>
-            </div>
-            <div class="form-group">
-                <button type="submit">Sign in</button>
-            </div>
-
-            <a href="{% url 'signupPage' %}"> I do not have an Account </a>
-        </form>
-    </div>
+                {% include "common/messages.html" %}
+                
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" name="username" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+                <div class="form-group">
+                    <button type="submit">Sign in</button>
+                </div>
+        
+                <a href="{% url 'signupPage' %}"> I do not have an Account </a>
+            </form>
+        </div>
+</div>
 </body>
 
 </html>
+{% endblock content %}

@@ -17,9 +17,16 @@ urlpatterns = [
     path('editjob/<str:jobid>',editjob,name='editjob'),
     path('deletePage/<str:jobid>',deletePage,name='deletePage'),
     path('applyjob/<str:jobid>',applyjob,name='applyjob'),
+    path('viewjob/<str:jobid>',viewjob,name='viewjob'),
+    
+    path('applicantPage/<str:jobid>',applicantPage,name='applicantPage'),
+
 
     #Recriter
     path('addjobPage/',addjobPage,name='addjobPage'),
+    path('rejectcandidate/<str:jobid>',rejectcandidate,name='rejectcandidate'),
+    path('callinterview/<str:jobid>',callinterview,name='callinterview'),
+
 
     #Profile
     path('profilebase/',profilebase,name='profilebase'),

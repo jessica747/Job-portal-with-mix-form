@@ -1,0 +1,101 @@
+{% extends 'common/base.html' %}
+
+{% block content %}
+
+
+<style>
+    .job-view-container {
+        margin: 20px;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        background-color: #f5fff5;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .job-header {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    .job-header h1 {
+        font-size: 2em;
+        margin-bottom: 10px;
+        color: #2d572c;
+    }
+
+    .job-header h2 {
+        font-size: 1.5em;
+        color: #4a8e4a;
+    }
+
+    .company-description {
+        margin-bottom: 20px;
+        font-size: 1.1em;
+        color: #3d3d3d;
+    }
+
+    .job-details h3 {
+        margin-bottom: 10px;
+        font-size: 1.4em;
+        color: #2d572c;
+    }
+
+    .job-details ul {
+        list-style-type: none;
+        padding: 0;
+    }
+
+    .job-details li {
+        margin-bottom: 10px;
+        font-size: 1.1em;
+        color: #2d572c;
+    }
+
+    .job-details strong {
+        color: #2d572c;
+    }
+
+    .btn.view-btn {
+        display: inline-block;
+        padding: 10px 20px;
+        margin-top: 20px;
+        font-size: 1.1em;
+        color: #fff;
+        background-color: #4caf50;
+        border: none;
+        border-radius: 5px;
+        text-decoration: none;
+        text-align: center;
+    }
+
+    .btn.view-btn:hover {
+        background-color: #45a049;
+    }
+</style>
+
+<div class="job-view-container">
+    <div class="job-header">
+        <h1>{{ viewjobdata.Job_Title }}</h1>
+        <h2>{{ viewjobdata.Company_Name }}</h2>
+    </div>
+
+    <div class="company-description">
+        <p>{{ viewjobdata.Company_Description }}</p>
+    </div>
+
+    <div class="job-details">
+        <h3>Job Details</h3>
+        <ul>
+            <li><strong>Location:</strong> {{ viewjobdata.Company_Location }}</li>
+            <li><strong>Qualifications:</strong> {{ viewjobdata.Qualifications }}</li>
+            <li><strong>Application Deadline:</strong> {{ viewjobdata.Dead_Line }}</li>
+            <li><strong>Salary:</strong> {{ viewjobdata.Salary }}</li>
+        </ul>
+        {% if user.User_Type == 'jobseeker' %}
+        <a href="{% url 'applyjob' viewjobdata.id %}" class="btn view-btn">Apply Job</a>
+        {% endif %}
+    </div>
+</div>
+
+{% endblock content %}

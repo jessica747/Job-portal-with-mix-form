@@ -1,3 +1,7 @@
+{% extends 'common/base.html' %}
+
+{% block content  %}
+  
 
 <!DOCTYPE html>
 <html lang="en">
@@ -7,7 +11,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Signup Page</title>
     <style>
-        body {
+
+        .signup {
             font-family: Arial, sans-serif;
             background-color: #f4f4f9;
             display: flex;
@@ -75,57 +80,63 @@
 </head>
 
 <body>
-    <div class="container">
-        <h1>Signup</h1>
-        <form action="{% url 'signupPage' %}" method="POST" enctype="multipart/form-data">
 
-            {% csrf_token %}
-            <div class="form-group">
-                <label for="username">Username</label>
-                <input type="text" id="username" name="username" required>
-            </div>
-            <div class="form-group">
-                <label for="password">Password</label>
-                <input type="password" id="password" name="password" required>
-            </div>
-            <div class="form-group">
-                <label for="confirm-password">Confirm Password</label>
-                <input type="password" id="confirm-password" name="confirm_password" required>
-            </div>
-            <div class="form-group">
-                <label for="role">User_Type</label>
-                <select id="role" name="user_type" required>
-                    <option value="recruiter">Recruiter</option>
-                    <option value="jobseeker">Jobseeker</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="city">City</label>
-                <input type="text" id="city" name="city" required>
-            </div>
-            <div class="form-group">
-                <label for="gender">Gender</label>
-                <select id="gender" name="gender" required>
-                    <option value="male">Male</option>
-                    <option value="female">Female</option>
-                    <option value="other">Other</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="profile-picture">Profile Picture</label>
-                <input type="file" id="profile-picture" name="profile_picture" required>
-            </div>
-            <div class="form-group">
-                <label for="email">Email</label>
-                <input type="email" id="email" name="email" required>
-            </div>
-            <div class="form-group">
-                <button type="submit">Sign Up</button>
-            </div>
-
-            <a href="{% url 'siginPage' %}"> I already have an Account </a>
-        </form>
-    </div>
+<div class="signup">
+        <div class="container">
+            <h1>Signup</h1>
+            <form action="{% url 'signupPage' %}" method="POST" enctype="multipart/form-data">
+        
+                {% csrf_token %}
+                {% include "common/messages.html" %}
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" name="username" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+                <div class="form-group">
+                    <label for="confirm-password">Confirm Password</label>
+                    <input type="password" id="confirm-password" name="confirm_password" required>
+                </div>
+                <div class="form-group">
+                    <label for="role">User_Type</label>
+                    <select id="role" name="user_type" required>
+                        <option value="recruiter">Recruiter</option>
+                        <option value="jobseeker">Jobseeker</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="city">City</label>
+                    <input type="text" id="city" name="city" required>
+                </div>
+                <div class="form-group">
+                    <label for="gender">Gender</label>
+                    <select id="gender" name="gender" required>
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="profile-picture">Profile Picture</label>
+                    <input type="file" id="profile-picture" name="profile_picture" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <button type="submit">Sign Up</button>
+                </div>
+        
+                <a href="{% url 'siginPage' %}"> I already have an Account </a>
+            </form>
+        </div>
+</div>
 </body>
 
 </html>
+
+{% endblock content %}

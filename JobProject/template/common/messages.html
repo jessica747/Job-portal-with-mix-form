@@ -1,0 +1,25 @@
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+
+
+
+{% if messages %}
+    
+    {% for i in messages %}
+
+        {% if i.tags == 'success' %}
+        <div class="w3-panel w3-green">
+            <p>{{i}}</p>
+        </div>
+        
+
+        {% elif i.tags == 'warning' %}
+        <div class="w3-panel w3-yellow w3-border">
+            <p>{{i}}</p>
+        </div>
+        
+        {% endif %}
+        
+    {% endfor %}
+        
+{% endif %}
